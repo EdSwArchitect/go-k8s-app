@@ -1,0 +1,6 @@
+{
+    "port" : 9080,
+    "healthUri" : "/",
+    "dirUri" : "/files",
+    "filesDir" : "dataDir"
+}
