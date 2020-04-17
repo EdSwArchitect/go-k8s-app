@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ingester-configmap
+  labels:
+    app: ingester-configmap
+spec:
+  containers:
+  - image: edswarchitect/k8s-ingester:0.1
+    name: ingester
+    volumeMounts:
+    - name: ingester-data-pv-storage
+      mountPath: /data
+      readOnly: true
+    ports:
+    - containerPort: 9080
+      protocol: TCP
+  volumes:
+  - name: ingester-data-pv-storage
+    persistentVolumeClaim:
+      claimName: ingester-data-pv-claim
+

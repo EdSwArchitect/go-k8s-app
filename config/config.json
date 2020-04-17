@@ -2,5 +2,7 @@
     "port" : 9080,
     "healthUri" : "/",
     "dirUri" : "/files",
+    "elastic" : "http://localhost:9200",
+    "index" : "k8s.index",
     "filesDir" : "dataDir"
 }
