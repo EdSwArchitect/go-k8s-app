@@ -6,17 +6,17 @@ metadata:
     app: ingester-configmap
 spec:
   containers:
-  - image: edswarchitect/k8s-ingester:0.1
+  - image: edswarchitect/k8s-ingester:0.3
     name: ingester
     volumeMounts:
-    - name: ingester-data-pv-storage
+    - name: ingester-data-configmap
       mountPath: /data
       readOnly: true
     ports:
     - containerPort: 9080
       protocol: TCP
   volumes:
-  - name: ingester-data-pv-storage
-    persistentVolumeClaim:
-      claimName: ingester-data-pv-claim
+  - name: ingester-data-configmap
+    configMap:
+      name: k8s-configmap
 

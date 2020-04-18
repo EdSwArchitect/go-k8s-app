@@ -74,9 +74,9 @@ func handleFile(w http.ResponseWriter, r *http.Request) {
 
 	url := r.URL
 
-	requestUri := url.RequestURI()
+	requestURI := url.RequestURI()
 
-	fmt.Fprintf(w, "Request URI: %s\n", requestUri)
+	fmt.Fprintf(w, "Request URI: %s\n", requestURI)
 
 	values := url.Query()
 
@@ -91,7 +91,7 @@ func handleFile(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "The filePath: %s\n", filePath[0])
 
-	theFile := fmt.Sprintf("/data/%s", filePath[0])
+	theFile := fmt.Sprintf("%s/%s", theConfiguration.FilesDir, filePath[0])
 
 	// file, err := os.Open(filePath[0])
 
@@ -197,6 +197,10 @@ func init() {
 
 	log.Printf("The config path: '%s'\n", configPath)
 
+	if len(configPath) == 0 {
+		configPath = "/data/config.json"
+	}
+
 	configData, err := ioutil.ReadFile(configPath)
 
 	if err != nil {
@@ -205,13 +209,21 @@ func init() {
 
 	json.Unmarshal(configData, &theConfiguration)
 
+	log.Printf("Configurations: %+v\n", theConfiguration)
+
+	// connectES()
+
+}
+
+func connectES() {
+
 	cfg := elasticsearch.Config{
 		Addresses: []string{
 			theConfiguration.Elastic,
 		},
 	}
 
-	es, err = elasticsearch.NewClient(cfg)
+	es, err := elasticsearch.NewClient(cfg)
 
 	if err != nil {
 		log.Fatalf("Unable to connect to Elastic. %+v\n", err)
