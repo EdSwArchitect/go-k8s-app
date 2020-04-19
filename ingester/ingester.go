@@ -34,33 +34,26 @@ var configPath string
 
 func elastic(w http.ResponseWriter, r *http.Request) {
 
-	// cfg := elasticsearch.Config{
-	// 	Addresses: []string{
-	// 		theConfiguration.Elastic,
-	// 	},
-	// }
+	cfg := elasticsearch.Config{
+		Addresses: []string{
+			theConfiguration.Elastic,
+		},
+	}
 
-	// es, err := elasticsearch.NewClient(cfg)
+	var err error
 
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusNotFound)
-	// 	w.Header().Add("content-type", "text/plain")
-	// 	fmt.Fprintf(w, "Unable to connect to Elastic. %+v\n", err)
-	// 	return
-	// }
+	es, err = elasticsearch.NewClient(cfg)
 
-	// res, err := es.Info()
-
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusNotFound)
-	// 	w.Header().Add("content-type", "text/plain")
-	// 	fmt.Fprintf(w, "Unable to get Elastic info: %+v\n", err)
-	// 	return
-	// }
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		w.Header().Add("content-type", "text/plain")
+		fmt.Fprintf(w, "Unable to connect to Elastic. %+v\n", err)
+		return
+	}
 
 	w.WriteHeader(http.StatusOK)
-	// w.Header().Add("content-type", "text/plain")
-	// fmt.Fprintf(w, "%+v", res)
+	w.Header().Add("content-type", "text/plain")
+	fmt.Fprintln(w, "OK")
 
 }
 
@@ -155,7 +148,7 @@ func load(lines []string) {
 			res, err := req.Do(context.Background(), es)
 
 			if err != nil {
-				log.Printf("Error")
+				log.Printf("Error: %+v\n", err)
 				return
 			}
 
@@ -184,7 +177,7 @@ func load(lines []string) {
 func server() {
 	http.HandleFunc("/", healthAndStatus)
 	http.HandleFunc("/handleFile", handleFile)
-	// http.HandleFunc("/elastic", elastic)
+	http.HandleFunc("/elastic", elastic)
 
 }
 
@@ -244,6 +237,8 @@ func main() {
 	log.Println("Ingester main init")
 	server()
 
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", theConfiguration.Port), nil))
+	connect := fmt.Sprintf(":%d", theConfiguration.Port)
+
+	log.Fatal(http.ListenAndServe(connect, nil))
 
 }

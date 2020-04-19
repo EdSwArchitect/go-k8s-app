@@ -6,7 +6,7 @@ metadata:
     app: ingester-configmap
 spec:
   containers:
-  - image: edswarchitect/k8s-ingester:0.3
+  - image: edswarchitect/k8s-ingester
     name: ingester
     volumeMounts:
     - name: ingester-data-configmap
@@ -18,5 +18,4 @@ spec:
   volumes:
   - name: ingester-data-configmap
     configMap:
-      name: k8s-configmap
-
+      name: ingester-config

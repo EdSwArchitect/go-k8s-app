@@ -1,0 +1,13 @@
+#
+FROM ubuntu:18.04 
+
+RUN mkdir -p /opt/playground /data
+
+WORKDIR /opt/playground
+
+COPY ./default-app/default-app default-app
+
+EXPOSE 1180
+
+ENTRYPOINT ["/opt/playground/default-app"]
+

@@ -2,7 +2,8 @@
     "port" : 9080,
     "healthUri" : "/",
     "dirUri" : "/files",
-    "elastic" : "http://localhost:9200",
+    "old-elastic" : "http://elastic:9200",
+    "elastic" : "http://ingester-es-svc:9200",
     "index" : "k8s.index",
     "filesDir" : "/data"
 }
