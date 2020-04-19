@@ -96,3 +96,14 @@ This sets up the ElasticSearch pod and service.
 ***es-pod.yaml*** - Creates the pod for ElasticSearch.
 
 ***ingester-es-svc.yaml*** - Creates the service for ElasticSearch.
+
+## Scripts
+
+Directory to create the configmap, pods, and then services. The ingest is done
+from the Google Cloud U/I. Next step is to use Google scripts to "deploy".
+
+# TODO
+
+1. Google Cloud scripts to do creation of cluster
+1. Google Cloud scripts to connect to the cluster
+1. Google Cloud scripts to create and "deploy"
