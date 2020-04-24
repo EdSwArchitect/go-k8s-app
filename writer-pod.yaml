@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: writer-persist
+  labels:
+    app: writer-persist
+spec:
+  containers:
+  - image: edswarchitect/write-persist
+    name: writer-persist
+    volumeMounts:
+    - name: test-persist
+      mountPath: /data
+      readOnly: false
+    ports:
+    - containerPort: 8090
+      protocol: TCP
+  - image: edswarchitect/read-persist
+    name: reader-persist
+    volumeMounts:
+    - name: test-persist
+      mountPath: /data
+      readOnly: true
+    ports:
+    - containerPort: 8091
+      protocol: TCP
+  volumes:
+  - name: test-persist
+    persistentVolumeClaim:
+      claimName: toydisk2-pvc

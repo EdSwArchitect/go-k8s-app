@@ -1,0 +1,15 @@
+#
+FROM ubuntu:18.04 
+
+RUN mkdir -p /opt/playground /data
+
+WORKDIR /opt/playground
+
+COPY ./readWrite/readWrite readWrite
+
+EXPOSE 8090
+EXPOSE 8091
+VOLUME /data
+
+ENTRYPOINT ["/opt/playground/readWrite", "-reading=false"]
+
