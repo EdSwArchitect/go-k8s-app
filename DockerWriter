@@ -1,0 +1,14 @@
+#
+FROM ubuntu:18.04 
+
+RUN mkdir -p /opt/playground /data
+
+WORKDIR /opt/playground
+
+COPY ./writer/writer persist-writer
+
+EXPOSE 8091
+VOLUME /data
+
+ENTRYPOINT ["/opt/playground/persist-writer"]
+

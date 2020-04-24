@@ -1,0 +1,14 @@
+#
+FROM ubuntu:18.04 
+
+RUN mkdir -p /opt/playground /data
+
+WORKDIR /opt/playground
+
+COPY ./reader/reader persist-reader
+
+EXPOSE 8090
+VOLUME /data
+
+ENTRYPOINT ["/opt/playground/persist-reader"]
+
