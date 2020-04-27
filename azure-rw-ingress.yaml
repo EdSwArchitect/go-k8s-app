@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: rw-ingress
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /listing
+#        pathType: Prefix
+        backend:
+          serviceName: reader-persist
+          servicePort: 8090
+      - path: /getFile
+#        pathType: Prefix
+        backend:
+          serviceName: reader-persist
+          servicePort: 8090

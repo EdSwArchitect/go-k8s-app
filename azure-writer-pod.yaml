@@ -1,20 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: reader-writer-persist
+  name: writer-persist
   labels:
+    app: writer-persist
     app: reader-writer-persist
 spec:
   containers:
-  - image: edswarchitect/read-persist
-    name: reader-persist
-    volumeMounts:
-    - name: test-persist
-      mountPath: /data
-      readOnly: true
-    ports:
-    - containerPort: 8090
-      protocol: TCP
   - image: edswarchitect/write-persist
     name: writer-persist
     volumeMounts:
@@ -27,4 +19,4 @@ spec:
   volumes:
   - name: test-persist
     persistentVolumeClaim:
-      claimName: toydisk2-pvc
+      claimName: azurefile

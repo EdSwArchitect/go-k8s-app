@@ -102,6 +102,18 @@ This sets up the ElasticSearch pod and service.
 Directory to create the configmap, pods, and then services. The ingest is done
 from the Google Cloud U/I. Next step is to use Google scripts to "deploy".
 
+# Azure
+
+* User: kentbrownaws@gmail.com
+* Web: azure.microsoft.com
+
+## Login and stuff
+
+**az login** -- That will cause the web UI to come up with the login credentials
+
+**az aks get-credentials --resource-group <resource group name> --name <k8s cluster name>** --  To set kubectl access
+
+
 # TODO
 
 1. Google Cloud scripts to do creation of cluster

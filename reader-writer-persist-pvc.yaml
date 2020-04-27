@@ -9,4 +9,5 @@ spec:
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
-  storageClassName: "standard"
+#  storageClassName: "standard"
+  storageClassName: ""

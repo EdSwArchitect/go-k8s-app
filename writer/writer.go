@@ -17,9 +17,16 @@ func init() {
 }
 
 func tickTock() {
+	fmt.Println("Start tick")
+
 	ticker := time.NewTicker(15 * time.Second)
 
+	fmt.Println("Started....")
+
 	for range ticker.C {
+
+		fmt.Println("Fired... ")
+
 		name := uuid.New()
 
 		filePath := fmt.Sprintf("/data/%s", name.String())
@@ -48,12 +55,12 @@ func healthAndStatus(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", healthAndStatus)
-	log.Fatal(http.ListenAndServe(":8091", nil))
-
 	ch := make(chan bool)
 
 	go tickTock()
+
+	http.HandleFunc("/", healthAndStatus)
+	log.Fatal(http.ListenAndServe(":8091", nil))
 
 	<-ch
 
